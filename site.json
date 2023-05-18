@@ -1,0 +1,88 @@
+{
+    "site": {
+        "name": "The Accountant",
+        "meta": "Something about that too",
+        "props": {
+            "background": "#f9f9f9",
+            "font-family": "Open Sans"
+        }
+    },
+    "elements": [
+        {
+            "type": "heading",
+            "content": "Accounting Professional",
+            "props": {
+                "level": 1
+            }
+        },
+        {
+            "type": "heading",
+            "content": "Shugi Lior",
+            "props": {
+                "level": 2
+            }
+        },
+        {
+            "type": "paragraph",
+            "content": "My Name Is Lior Shugi, I consult for Fortune 500 companies on all things related to Finances, Big money decisions, internal and external.",
+            "props": {
+                "styles": {
+                    "color": "#010101",
+                    "background": "#f9f9f9",
+                    "font-size": "22px"
+                },
+                "children": []
+            }
+        },
+        {
+            "type": "div",
+            "content": "",
+            "props": {
+                "styles": {
+                    "padding": "2em 2em",
+                    "background": "#f9f9f9",
+                    "display": "flex",
+                    "justify-content": "space-between"
+                },
+                "children": [
+                    {
+                        "type": "button",
+                        "content": "Book Now",
+                        "props": {
+                            "styles": {
+                                "padding": "10px 16px",
+                                "background": "#fff",
+                                "color": "#111",
+                                "text-align": "center"
+                            }
+                        }
+                    },
+                    {
+                        "type": "button",
+                        "content": "Demo",
+                        "props": {
+                            "styles": {
+                                "padding": "10px 16px",
+                                "background": "#393939",
+                                "color": "#fafafa",
+                                "text-align": "center"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "button",
+            "content": "Book Now",
+            "props": {
+                "styles": {
+                    "padding": "10px 16px",
+                    "background": "#bd4c6d",
+                    "text-align": "center"
+                },
+                "children": []
+            }
+        }
+    ]
+}
