@@ -31,17 +31,22 @@ type Element struct {
 	} `json:"props"`
 }
 
+// Element.Render method generates an HTML element. It exists as
+// a method to allow usage inside genHTML func
 func (e Element) Render() string {
 
 	var htmlElement string
 
+	// The formatting extracted to a function to allow for future
+	// modifications based on various arguments, element's children nodes,
+	// handlers, styles, etc.
 	switch e.Type {
 	case "heading":
 		htmlElement = headingTemplate(e)
 	case "paragraph":
 		htmlElement = paragraphTemplate(e)
 	case "button":
-		htmlElement = fmt.Sprintf(`<button class="%s">%s</button>`, e.Class, e.Content)
+		htmlElement = buttonTemplate(e)
 	case "div":
 		htmlElement = divTemplate(e)
 	default:
@@ -49,7 +54,6 @@ func (e Element) Render() string {
 	}
 
 	return htmlElement
-	// return template.HTML(htmlElement)
 }
 
 func headingTemplate(e Element) string {
@@ -58,6 +62,10 @@ func headingTemplate(e Element) string {
 
 func paragraphTemplate(e Element) string {
 	return fmt.Sprintf(`<p class="%s">%s</p>`, e.Class, e.Content)
+}
+
+func buttonTemplate(e Element) string {
+	return fmt.Sprintf(`<button class="%s">%s</button>`, e.Class, e.Content)
 }
 
 func divTemplate(e Element) string {
@@ -73,7 +81,7 @@ func divTemplate(e Element) string {
 	return fmt.Sprintf(`<div class="%s">%s</div>`, e.Class, childrenHTML)
 }
 
-func genHTML(elements []Element) (string, error) {
+func genHTML(site Site) (string, error) {
 
 	dynamicElementsFunc := template.FuncMap{
 		"element": func(e Element) (template.HTML, error) {
@@ -87,26 +95,24 @@ func genHTML(elements []Element) (string, error) {
 			case "div":
 				htmlElement = divTemplate(e)
 			default:
-				htmlElement = ""
+				htmlElement = divTemplate(e)
 			}
 
 			return template.HTML(htmlElement), nil
 		},
 	}
 
-	tmpl := template.Must(template.New("").Funcs(dynamicElementsFunc).Parse(`
-		{{ range . }}
-			{{ element . }}
-		{{ end }}
-	`))
+	tmpl := template.Must(template.New("base").Funcs(dynamicElementsFunc).ParseFiles("tpl/base.html"))
 
 	var htmlBytes bytes.Buffer
-	err := tmpl.Execute(&htmlBytes, &elements)
+	err := tmpl.Execute(&htmlBytes, &site)
 	if err != nil {
 		return "", err
 	}
 
 	htmlOutput := htmlBytes.String()
+
+	htmlOutput += ""
 	return htmlOutput, nil
 }
 
@@ -123,7 +129,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	output, err := genHTML(site.HtmlBody)
+	output, err := genHTML(site)
 	if err != nil {
 		fmt.Println(err)
 	}

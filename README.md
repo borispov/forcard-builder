@@ -1,5 +1,4 @@
 # FORCARD - A Digital Card / Mini website generator.
-
 I still haven't figured out how to implement this actually.
 
 Code Gen? OR just store user preferences in the DB and build a UI upon them. Build pages with componenets, not a code gen actually.
@@ -43,9 +42,27 @@ My initial idea involved code_gen I think. The data source was to be included in
 }
 ```
 
+# Challenges
 
-I want a user to be able to set up a website using very simple element
-tags
+Questions on how to add javascript/CSS:
+1. Should Front-End decide and encode the javaScript code based on user
+   preferences? eventListeners, interactivity.
+2. Should Back-End do this? Escape JavaScript as a file or a script tag
+   inside the template?
+
+## Kinds of interactivity
+- Links should come from the client as a URL. Easy.
+- Buttons?
+- Menus
+- Animations
+
+## Stylings
+- Inline styles +
+- Seperate css file (provided by client?) ++
+- Include style tags (like Astro/Svelte do)
+- 
+
+TODO: Use [Hugo](https://github.com/gohugoio/) as an educatinal resource
 
 Go program should parse the data from a json file and map it into HTML
 elements, or astro components and append stylesheets according to user
